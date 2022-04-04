@@ -19,13 +19,15 @@ Route::get('/', function () {
 
 Route::get('/my_page', 'MyPlaceController@index');
 
-Route::get('/posts', 'PostController@index')->name('post.index');
-Route::get('/posts/create', 'PostController@create')->name('post.create');
+Route::group(['namespace' => 'Post'], function () {
+    Route::get('/posts', 'IndexController')->name('post.index');
+    Route::get('/posts/create', 'CreateController')->name('post.create');
 
-Route::post('/posts', 'PostController@store')->name('post.store');
-Route::get('/posts/{post}', 'PostController@show')->name('post.show');
-Route::get('/posts/{post}/edit', 'PostController@edit')->name('post.edit');
-Route::patch('/posts/{post}', 'PostController@update')->name('post.update');
+    Route::post('/posts', 'StoreController')->name('post.store');
+    Route::get('/posts/{post}', 'ShowController')->name('post.show');
+    Route::get('/posts/{post}/edit', 'EditController')->name('post.edit');
+    Route::patch('/posts/{post}', 'UpdateController')->name('post.update');
+});
 
 Route::get('/posts/update', 'PostController@update');
 Route::get('/posts/firstOrCreate', 'PostController@firstOrCreate');

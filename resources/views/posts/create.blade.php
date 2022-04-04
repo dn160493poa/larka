@@ -42,8 +42,6 @@
                     <select class="form-control" multiple id="tags" name="tags[]">
                         @foreach($tags as $tag)
                             <option
-                                <?php echo "<script>console.log(JSON.parse('" . json_encode(old('category_id')) . "'));</script>"; ?>
-
                                 value="{{$tag->id}}">{{$tag->title}}
                             </option>
                         @endforeach

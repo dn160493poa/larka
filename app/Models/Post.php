@@ -11,7 +11,7 @@ class Post extends Model
 
     protected $table = 'posts';
 
-    protected $guarded = [];
+    protected $guarded = false;
 
     /*** or false  */
 
