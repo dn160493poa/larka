@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Post\IndexController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,6 +20,7 @@ Route::get('/', function () {
 
 Route::get('/my_page', 'MyPlaceController@index');
 
+
 Route::group(['namespace' => 'Post'], function () {
     Route::get('/posts', 'IndexController')->name('post.index');
     Route::get('/posts/create', 'CreateController')->name('post.create');
@@ -28,6 +30,7 @@ Route::group(['namespace' => 'Post'], function () {
     Route::get('/posts/{post}/edit', 'EditController')->name('post.edit');
     Route::patch('/posts/{post}', 'UpdateController')->name('post.update');
 });
+
 
 Route::get('/posts/update', 'PostController@update');
 Route::get('/posts/firstOrCreate', 'PostController@firstOrCreate');
