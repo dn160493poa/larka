@@ -29,7 +29,8 @@ class AdminPolicy
      */
     public function view(User $user, User $model)
     {
-        return $model->role === 'admin';
+        return isset($model);
+        //return $model->role === 'admin';
     }
 
     /**
