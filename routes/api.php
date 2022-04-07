@@ -32,6 +32,13 @@ Route::group([
 
 });
 
-Route::group(['namespase' => 'Post', 'middleware' => 'jwt.auth'], function (){
-    Route::get('/posts', 'Post\IndexController');
+Route::group(['namespace' => 'Post\Api', 'middleware' => 'jwt.auth'], function (){
+    Route::get('/posts', 'IndexController');
+    Route::get('/posts/create', 'CreateController');
+
+    Route::post('/posts', 'StoreController');
+    Route::get('/posts/{post}', 'ShowController');
+    Route::get('/posts/{post}/edit', 'EditController');
+    Route::patch('/posts/{post}', 'UpdateController');
+    //Route::delete('/posts/{post}', 'DestroyController')->name('post.update');
 });

@@ -25,7 +25,12 @@ class AuthController extends Controller
     {
         $credentials = request(['email', 'password']);
 
-        if (! $token = auth()->attempt($credentials)) {
+        /** changed standard laravel token for work guards api and web
+            $token = auth()->attempt($credentials)
+         */
+        $token = auth()->guard('api')->attempt($credentials); // new
+
+        if (!$token) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
@@ -49,7 +54,8 @@ class AuthController extends Controller
      */
     public function logout()
     {
-        auth()->logout();
+        //auth()->logout();
+        auth()->guard('api')->logout();
 
         return response()->json(['message' => 'Successfully logged out']);
     }
@@ -76,7 +82,11 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
+            'expires_in'   => auth('api')->factory()->getTTL() * 60,
+
+            /** changed standard laravel token for work guards api and web
+                'expires_in' => auth()->factory()->getTTL() * 60
+             */
         ]);
     }
 }
