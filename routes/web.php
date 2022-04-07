@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Post\IndexController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,9 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('/my_page', 'MyPlaceController@index');
 
@@ -31,7 +28,7 @@ Route::group(['namespace' => 'Post'], function () {
     Route::patch('/posts/{post}', 'UpdateController')->name('post.update');
 });
 
-Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
+Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::group(['namespace' => 'Post'], function () {
         Route::get('/posts', 'IndexController')->name('admin.post.index');
         Route::get('/posts/create', 'CreateController')->name('admin.post.create');
@@ -50,3 +47,7 @@ Route::get('/posts/updateOrCreate', 'PostController@updateOrCreate');
 Route::get('/main', 'MainController@index')->name('main.index');
 Route::get('/contacts', 'ContactsController@index')->name('contacts.index');
 Route::get('/about', 'AboutController@index')->name('about.index');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
